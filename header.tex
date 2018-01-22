@@ -1,6 +1,6 @@
 \makeatletter
 \ifx \nauthor\undefined
-  \def\nauthor{Brian Chow}
+  \def\nauthor{Dexter Chua}
 \else
 \fi
 
@@ -58,18 +58,22 @@
 \pgfplotsset{compat=1.12}
 
 \pagestyle{fancyplain}
+\ifx \ncoursehead \undefined
+\def\ncoursehead{\ncourse}
+\fi
+
 \lhead{\emph{\nouppercase{\leftmark}}}
 \ifx \nextra \undefined
   \rhead{
     \ifnum\thepage=1
     \else
-      \npart\ \ncourse
+      \npart\ \ncoursehead
     \fi}
 \else
   \rhead{
     \ifnum\thepage=1
     \else
-      \npart\ \ncourse\ (\nextra)
+      \npart\ \ncoursehead \ (\nextra)
     \fi}
 \fi
 \usetikzlibrary{arrows.meta}
@@ -171,6 +175,7 @@
 \let\stdsection\section
 \renewcommand\section{\newpage\stdsection}
 
+\newcommand\qedsym{\hfill\ensuremath{\square}}
 % Strike through
 \def\st{\bgroup \ULdepth=-.55ex \ULset}
 
@@ -231,7 +236,7 @@
 \newcommand{\cat}[1]{\mathsf{#1}}
 \newcommand{\ph}{\,\cdot\,}
 \newcommand{\term}[1]{\emph{#1}\index{#1}}
-
+\newcommand{\phantomeq}{\hphantom{{}={}}}
 % Probability
 \DeclareMathOperator{\Bernoulli}{Bernoulli}
 \DeclareMathOperator{\betaD}{beta}
@@ -425,6 +430,9 @@
     \draw (#1,#2) arc (\cA:\cB:\cr);%
 }
 \newcommand\getCoord[3]{\newdimen{#1}\newdimen{#2}\pgfextractx{#1}{\pgfpointanchor{#3}{center}}\pgfextracty{#2}{\pgfpointanchor{#3}{center}}}
+
+\newcommand\qedshift{\vspace{-17pt}}
+\newcommand\fakeqed{\pushQED{\qed}\qedhere}
 
 \def\Xint#1{\mathchoice
    {\XXint\displaystyle\textstyle{#1}}%
